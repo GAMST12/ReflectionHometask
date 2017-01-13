@@ -5,19 +5,20 @@ import annotations.JsonValue;
 
 import java.time.LocalDate;
 
-public class Human {
+public class FootballPlayer {
     private String firstName;
     private String lastName;
-    @JsonValue(name = "fun")
+    @JsonValue( name = "club")
     private String hobby;
-    @CustomDateFormat(format = "dd-MM-yyyy")
+    //@CustomDateFormat(format = "dd-MM-yyyy")
     private LocalDate birthDate;
 
-    public Human() {
+    public FootballPlayer()
+    {
 
     }
 
-    public Human(String firstName, String lastName, String hobby, LocalDate birthDate) {
+    public FootballPlayer(String firstName, String lastName, String hobby, LocalDate birthDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hobby = hobby;
@@ -58,7 +59,7 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Human{" +
+        return "FootballPlayer{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", hobby='" + hobby + '\'' +
