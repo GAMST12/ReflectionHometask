@@ -27,6 +27,13 @@ public class Serializator {
                 Class annotationJsonType = annotationJson.annotationType();
                 Method annotationJsonMethod = annotationJsonType.getMethod("name");
                 fieldName = (String) annotationJsonMethod.invoke(annotationJson);
+                for (Field checkField : fields) {
+                    if (fieldName.equals(checkField.getName())) {
+                        System.out.println("Annotation ignored: " + fieldName);
+                        fieldName = field.getName();
+                        break;
+                    }
+                }
             } else fieldName = field.getName();
 
             CustomDateFormat annotationDate = field.getAnnotation(CustomDateFormat.class);
