@@ -10,7 +10,7 @@ public class Human {
     private String lastName;
     @JsonValue(name = "fun")
     private String hobby;
-    @CustomDateFormat(format = "dd-MM-yyyy")
+    @CustomDateFormat(format = "dd-MM-uuuu")
     private LocalDate birthDate;
 
     public Human() {

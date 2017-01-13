@@ -6,6 +6,8 @@ import annotations.JsonValue;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,15 +46,16 @@ public class Serializator {
             } else formatDate = "";
 
             //todo 1.0
-            value = field.get(o);
-/*
+            //value = field.get(o);
+
             if (formatDate!="") {
-                value="111";
+                value = (LocalDate.parse(field.get(o).toString(), DateTimeFormatter.ISO_LOCAL_DATE)).format(DateTimeFormatter.ofPattern(formatDate));
             } else value = field.get(o);
-*/
+
             if (value != null) {
                 singleObject.put(fieldName, value);
             }
+
 
         }
 

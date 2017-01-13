@@ -6,6 +6,7 @@ import entities.Human;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static main.Deserializator.fromJson;
 import static main.Serializator.toJson;
@@ -15,7 +16,7 @@ public class ReflectionMain {
 
         Human poroshenko = new Human("Petro", "Poroshenko", "candy", LocalDate.of(1965,9,26));
         FootballPlayer shevchenko = new FootballPlayer ("Andrey", "Shevchenko", "Milan", LocalDate.of(1976,9,29));
-        FootballPlayer pele = new FootballPlayer ("Pele", null, "Santos", LocalDate.of(1941,1,1));
+        FootballPlayer pele = new FootballPlayer ("Pele", null, "Santos", LocalDate.of(1940,10,23));
 
         BadHuman badPoroshenko = new BadHuman ("Petro", "Poroshenko", "Balzman", LocalDate.of(1965,9,26));
 
@@ -35,7 +36,7 @@ public class ReflectionMain {
 
         System.out.println(badPoroshenkoString);
 
-        /*
+
         FootballPlayer sheva = (FootballPlayer)fromJson(shevshenkoString, FootballPlayer.class);
         System.out.println(sheva);
 
@@ -45,7 +46,10 @@ public class ReflectionMain {
 
         FootballPlayer king = (FootballPlayer)fromJson(peleString, FootballPlayer.class);
         System.out.println(king);
-        */
+
+        BadHuman badPoroh = (BadHuman)fromJson(badPoroshenkoString, BadHuman.class);
+        System.out.println(badPoroh);
 
     }
+
 }

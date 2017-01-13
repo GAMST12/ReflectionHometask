@@ -10,7 +10,6 @@ public class FootballPlayer {
     private String lastName;
     @JsonValue( name = "club")
     private String hobby;
-    //@CustomDateFormat(format = "dd-MM-yyyy")
     private LocalDate birthDate;
 
     public FootballPlayer()

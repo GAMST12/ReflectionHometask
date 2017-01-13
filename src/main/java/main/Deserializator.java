@@ -1,9 +1,11 @@
 package main;
 
+import annotations.CustomDateFormat;
 import annotations.JsonValue;
 
 import java.lang.reflect.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ public class Deserializator {
     public static Object fromJson(String json, Class clazz) throws IllegalAccessException, ClassNotFoundException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         HashMap<String, Object> fromJsonObject = new HashMap<>();
         String fieldNameFromAnnotation;
+        String formatDateFromAnnotation;
 
         String[] stringLines = json.replace("{", "").replace("}", "").replace("\"", "").split("\n");
         for (String string : stringLines) {
@@ -30,16 +33,28 @@ public class Deserializator {
                 Class annotationJsonType = annotationJson.annotationType();
                 Method annotationJsonMethod = annotationJsonType.getMethod("name");
                 fieldNameFromAnnotation = (String) annotationJsonMethod.invoke(annotationJson);
+                for (Field checkField : fields) {
+                    if (fieldNameFromAnnotation.equals(checkField.getName())) {
+                        fieldNameFromAnnotation = field.getName();
+                    }
+                }
             } else fieldNameFromAnnotation = field.getName();
+
+
+            CustomDateFormat annotationDate = field.getAnnotation(CustomDateFormat.class);
+            if (annotationDate != null) {
+                Class annotationDateType = annotationDate.annotationType();
+                Method annotationDateMethod = annotationDateType.getMethod("format");
+                formatDateFromAnnotation = (String) annotationDateMethod.invoke(annotationDate);
+            } else formatDateFromAnnotation = "yyyy-MM-dd";
+
 
             for (Map.Entry<String, Object> entry : fromJsonObject.entrySet()) {
                 if (fieldNameFromAnnotation.equals(entry.getKey())) {
                     field.setAccessible(true);
-                    if (field.getType().getName().equals("java.time.LocalDate")) { //todo 1.1
-                        int year = Integer.parseInt(entry.getValue().toString().substring(0,4));
-                        int month = Integer.parseInt(entry.getValue().toString().substring(6,7));
-                        int dayOfMonth = Integer.parseInt(entry.getValue().toString().substring(9,10));
-                        field.set(parsedObject, LocalDate.of(year, month, dayOfMonth));
+                    if ((field.getType().getName().equals("java.time.LocalDate"))) {        //todo 1.1
+                        LocalDate date  = LocalDate.parse(entry.getValue().toString(), DateTimeFormatter.ofPattern(formatDateFromAnnotation));
+                        field.set(parsedObject, date);
                     } else {
                         field.set(parsedObject, entry.getValue());
                     }
