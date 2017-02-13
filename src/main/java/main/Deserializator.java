@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Deserializator {
     public static Object fromJson(String json, Class clazz) throws IllegalAccessException, ClassNotFoundException, InstantiationException, NoSuchMethodException, InvocationTargetException {
-        HashMap<String, Object> fromJsonObject = new HashMap<>();
+        Map<String, Object> fromJsonObject = new HashMap<>();
         String fieldNameFromAnnotation;
         String formatDateFromAnnotation;
 

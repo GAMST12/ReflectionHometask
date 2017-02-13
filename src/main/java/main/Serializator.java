@@ -14,8 +14,8 @@ import java.util.Map;
 public class Serializator {
 
 
-    public static HashMap<String, Object> parseObject (Object o) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        HashMap<String, Object> singleObject = new HashMap<>();
+    private static Map<String, Object> parseObject (Object o) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        Map<String, Object> singleObject = new HashMap<>();
         String fieldName;
         String formatDate;
         Object value;
@@ -64,7 +64,7 @@ public class Serializator {
     }
 
     public static String toJson (Object o) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        HashMap<String, Object> objectHashMap = parseObject(o);
+        Map<String, Object> objectHashMap = parseObject(o);
         StringBuilder objectString = new StringBuilder();
         objectString.append("{ \n");
         for (Map.Entry<String, Object> entry : objectHashMap.entrySet()) {
